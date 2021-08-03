@@ -13,7 +13,7 @@ from random_pic import get_pic_url
 from fun import get_dianfei,xiaohua,save_dianfei,judge_df,xiaobing,fanyi,update_SUB,daidu_baike,mengniang,get_gechi
 from bilibili import get_last_video
 
-group_person_fang={934643345:'7 242',2629201744:'7 409',1378097917:'7 423',2778579446:'7 408'}
+group_person_fang={}
 
 # ListenSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # ListenSocket.bind(('127.0.0.1', 5710))
@@ -204,7 +204,7 @@ def send_pic(chose=1):
 		all_message['raw_message'] ='[CQ:image,file='+url+']'#+str(id_ran)+']'
 	client_to_conn()
 
-def send_dianfei(infor='7 408'):
+def send_dianfei(infor=' '):
 	print(type(all_message['sender']['user_id']))
 	if all_message['sender']['user_id'] in group_person_fang and infor=='7 408':
 		infor=group_person_fang[all_message['sender']['user_id']]
@@ -386,14 +386,14 @@ def jiaohu():
 	while 1:
 		try:
 			global flag
-			flag=0		#不知道有什么用，但是不能删，删了会重复发送消息
+			flag=0		
 			global all_message
 			all_message= rev_msg()
 			first_judgement()
 			# time.sleep(5)
 		except:
 			continue
-def jianting(uid,qq_num=2778579446):
+def jianting(uid,qq_num=1234):#默认的QQ号
 	star_time = time.time()
 	last_video=None
 	b=5
@@ -416,21 +416,18 @@ def jianting(uid,qq_num=2778579446):
 		except:
 			time.sleep(300)
 if __name__=='__main__':
-	hour=int(time.strftime("%H"))
-	if(hour>=1 and hour<=6):
-	print(hour)
 	# jiaohu()
-	# duo_uid=375089647
-	# warma_uid=53456
-	# boshidun_uid=346563107
+	duo_uid=375089647
+	warma_uid=53456
+	boshidun_uid=346563107
 	# shenyi_uid=648113003
-	# p0 = multiprocessing.Process(target=jianting, args=(boshidun_uid,))
-	# p1 = multiprocessing.Process(target=jianting, args=(warma_uid,))
-	# p2 = multiprocessing.Process(target=jianting, args=(duo_uid,))
-	# p3 = multiprocessing.Process(target=jiaohu)
-	# p0.start()
-	# p1.start()
-	# p2.start()
-	# p3.start()
+	p0 = multiprocessing.Process(target=jianting, args=(boshidun_uid,))
+	p1 = multiprocessing.Process(target=jianting, args=(warma_uid,))
+	p2 = multiprocessing.Process(target=jianting, args=(duo_uid,))
+	p3 = multiprocessing.Process(target=jiaohu)
+	p0.start()
+	p1.start()
+	p2.start()
+	p3.start()
 	# jianting(duo_uid)
 	# send_private('2333')
